@@ -39,12 +39,12 @@ class Config
         $body = [];
 
         //公共请求参数
-        $body['method']    = $this->method;
-        $body['app_id']    = $this->_getConfig('app_id');
-        $body['format']    = $this->_getConfig('format');
-        $body['charset']   = $this->_getConfig('charset');
+        $body['method'] = $this->method;
+        $body['app_id'] = $this->_getConfig('app_id');
+        $body['format'] = $this->_getConfig('format');
+        $body['charset'] = $this->_getConfig('charset');
         $body['sign_type'] = $this->_getConfig('sign_type');
-        $body['version']   = $this->_getConfig('version');
+        $body['version'] = $this->_getConfig('version');
         $body['timestamp'] = date('Y-m-d H:i:s');
 
         //其它请求参数
@@ -129,6 +129,16 @@ class Config
     protected function succRefund(array $data)
     {
         if ($data['code'] === '10000' && $data['fund_change'] === 'Y') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //接口调用成功
+    protected function succRequest(array $data)
+    {
+        if ($data['code'] === '10000') {
             return true;
         } else {
             return false;

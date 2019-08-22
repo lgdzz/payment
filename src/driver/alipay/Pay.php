@@ -29,18 +29,18 @@ class Pay extends Config
     {
         $this->method = 'alipay.trade.wap.pay';
         return $this->body([
-          'other'   => function (&$data) use ($charge) {
-              $data['return_url'] = $charge->getPayDataByName('return_url', '');
-              $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
-          },
-          'content' => function (&$data) use ($charge) {
-              $data['subject'] = $charge->getPayDataByName('title');
-              $data['body'] = $charge->getPayDataByName('detail', '');
-              $data['out_trade_no'] = $charge->getPayDataByName('order_no');
-              $data['total_amount'] = $charge->getPayDataByName('pay_amount');
-              $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
-              $data['product_code'] = 'QUICK_WAP_WAY';
-          }
+            'other' => function (&$data) use ($charge) {
+                $data['return_url'] = $charge->getPayDataByName('return_url', '');
+                $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
+            },
+            'content' => function (&$data) use ($charge) {
+                $data['subject'] = $charge->getPayDataByName('title');
+                $data['body'] = $charge->getPayDataByName('detail', '');
+                $data['out_trade_no'] = $charge->getPayDataByName('order_no');
+                $data['total_amount'] = $charge->getPayDataByName('pay_amount');
+                $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
+                $data['product_code'] = 'QUICK_WAP_WAY';
+            }
         ])->getUrl();
     }
 
@@ -49,21 +49,21 @@ class Pay extends Config
     {
         $this->method = 'alipay.trade.page.pay';
         return $this->body([
-          'other'   => function (&$data) use ($charge) {
-              $data['return_url'] = $charge->getPayDataByName('return_url', '');
-              $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
-          },
-          'content' => function (&$data) use ($charge) {
-              $data['subject'] = $charge->getPayDataByName('title');
-              $data['body'] = $charge->getPayDataByName('detail', '');
-              $data['out_trade_no'] = $charge->getPayDataByName('order_no');
-              $data['total_amount'] = $charge->getPayDataByName('pay_amount');
-              $data['goods_type'] = $charge->getPayDataByName('goods_type', '1');
-              $data['qr_pay_mode'] = $charge->getPayDataByName('qr_pay_mode', '2');
-              $data['qrcode_width'] = $charge->getPayDataByName('qrcode_width', '100');
-              $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
-              $data['product_code'] = 'FAST_INSTANT_TRADE_PAY';
-          }
+            'other' => function (&$data) use ($charge) {
+                $data['return_url'] = $charge->getPayDataByName('return_url', '');
+                $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
+            },
+            'content' => function (&$data) use ($charge) {
+                $data['subject'] = $charge->getPayDataByName('title');
+                $data['body'] = $charge->getPayDataByName('detail', '');
+                $data['out_trade_no'] = $charge->getPayDataByName('order_no');
+                $data['total_amount'] = $charge->getPayDataByName('pay_amount');
+                $data['goods_type'] = $charge->getPayDataByName('goods_type', '1');
+                $data['qr_pay_mode'] = $charge->getPayDataByName('qr_pay_mode', '2');
+                $data['qrcode_width'] = $charge->getPayDataByName('qrcode_width', '100');
+                $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
+                $data['product_code'] = 'FAST_INSTANT_TRADE_PAY';
+            }
         ])->getUrl();
     }
 
@@ -71,18 +71,18 @@ class Pay extends Config
     {
         $this->method = 'alipay.trade.precreate';
         $result = $this->body([
-          'other'   => function (&$data) use ($charge) {
-              $data['return_url'] = $charge->getPayDataByName('return_url', '');
-              $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
-          },
-          'content' => function (&$data) use ($charge) {
-              $data['subject'] = $charge->getPayDataByName('title');
-              $data['body'] = $charge->getPayDataByName('detail', '');
-              $data['out_trade_no'] = $charge->getPayDataByName('order_no');
-              $data['total_amount'] = $charge->getPayDataByName('pay_amount');
-              $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
-              $data['product_code'] = $charge->getPayDataByName('goods_type', 'FACE_TO_FACE_PAYMENT');
-          }
+            'other' => function (&$data) use ($charge) {
+                $data['return_url'] = $charge->getPayDataByName('return_url', '');
+                $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
+            },
+            'content' => function (&$data) use ($charge) {
+                $data['subject'] = $charge->getPayDataByName('title');
+                $data['body'] = $charge->getPayDataByName('detail', '');
+                $data['out_trade_no'] = $charge->getPayDataByName('order_no');
+                $data['total_amount'] = $charge->getPayDataByName('pay_amount');
+                $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
+                $data['product_code'] = $charge->getPayDataByName('goods_type', 'FACE_TO_FACE_PAYMENT');
+            }
         ])->send();
 
         $data = $result['alipay_trade_precreate_response'] ?? null;
@@ -98,7 +98,21 @@ class Pay extends Config
     //APP支付
     private function app(Charge $charge)
     {
-
+        $this->method = 'alipay.trade.app.pay';
+        return $this->body([
+            'other' => function (&$data) use ($charge) {
+                $data['return_url'] = $charge->getPayDataByName('return_url', '');
+                $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
+            },
+            'content' => function (&$data) use ($charge) {
+                $data['subject'] = $charge->getPayDataByName('title');
+                $data['body'] = $charge->getPayDataByName('detail', '');
+                $data['out_trade_no'] = $charge->getPayDataByName('order_no');
+                $data['total_amount'] = $charge->getPayDataByName('pay_amount');
+                $data['passback_params'] = urlencode($charge->getPayDataByName('passback_params', ''));
+                $data['product_code'] = $charge->getPayDataByName('goods_type', 'QUICK_MSECURITY_PAY');
+            },
+        ])->getString();
     }
 
 }

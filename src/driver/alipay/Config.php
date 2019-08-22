@@ -13,13 +13,13 @@ use lgdz\utils\Rsa2Encrypt;
 class Config
 {
     private $config = [
-      'app_id'          => '',
-      'format'          => 'JSON',
-      'charset'         => 'UTF-8',
-      'sign_type'       => 'RSA2',
-      'version'         => '1.0',
-      'ali_public_key'  => '',
-      'rsa_private_key' => ''
+        'app_id' => '',
+        'format' => 'JSON',
+        'charset' => 'UTF-8',
+        'sign_type' => 'RSA2',
+        'version' => '1.0',
+        'ali_public_key' => '',
+        'rsa_private_key' => ''
     ];
 
     private $gateway = 'https://openapi.alipay.com/gateway.do';
@@ -75,7 +75,7 @@ class Config
         ksort($data);
         $rsa2 = new Rsa2Encrypt;
         return $rsa2->setKey($rsa2->getRsaKeyValue($this->_getConfig('rsa_private_key'), 'private'))
-          ->encrypt(urldecode(http_build_query($data)));
+            ->encrypt(urldecode(http_build_query($data)));
     }
 
     protected function send()
@@ -86,6 +86,11 @@ class Config
     protected function getUrl()
     {
         return $this->gateway . '?' . $this->_splicingString($this->body);
+    }
+
+    protected function getString()
+    {
+        return $this->_splicingString($this->body);
     }
 
     //获取支付宝推送数据
@@ -101,7 +106,7 @@ class Config
     {
         $rsa2 = new Rsa2Encrypt;
         return $rsa2->setKey($rsa2->getRsaKeyValue($this->_getConfig('ali_public_key'), 'public'))
-          ->rsaVerify(json_encode($data, JSON_UNESCAPED_UNICODE), $sign);
+            ->rsaVerify(json_encode($data, JSON_UNESCAPED_UNICODE), $sign);
     }
 
     //成功验证签名（异步） @return bool
@@ -113,7 +118,7 @@ class Config
             ksort($data);
             $rsa2 = new Rsa2Encrypt;
             return $rsa2->setKey($rsa2->getRsaKeyValue($this->_getConfig('ali_public_key'), 'public'))
-              ->rsaVerify(urldecode(http_build_query($data)), $sign);
+                ->rsaVerify(urldecode(http_build_query($data)), $sign);
         } else {
             return false;
         }

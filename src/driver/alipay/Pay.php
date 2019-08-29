@@ -101,7 +101,6 @@ class Pay extends Config
         $this->method = 'alipay.trade.app.pay';
         return $this->body([
             'other' => function (&$data) use ($charge) {
-                $data['return_url'] = $charge->getPayDataByName('return_url', '');
                 $data['notify_url'] = $charge->getPayDataByName('notify_url', '');
             },
             'content' => function (&$data) use ($charge) {
